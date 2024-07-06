@@ -5,8 +5,18 @@ import threading
 HOST = '127.0.0.1'
 PORT = 65432
 
+
 # Function to handle each client connection
 def handle_client(conn, addr):
+    """
+    Handles a client connection.
+
+    :param conn: The connection socket object.
+    :param addr: The address of the client.
+    :return: None
+
+    This function handles a client connection by printing the address of the client, receiving data from the client, printing the received data, preparing a response, and sending the response back to the client.
+    """
     print(f'New connection from {addr}')
     with conn:
         while True:
@@ -17,6 +27,7 @@ def handle_client(conn, addr):
             print(f'Received from {addr}: {data.decode()}')
             response = f'Server received: {data.decode()}'
             conn.sendall(response.encode())
+
 
 # Create a socket object with IPv4 and TCP
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
